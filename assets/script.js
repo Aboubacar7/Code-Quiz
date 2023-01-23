@@ -29,7 +29,7 @@ var timer = 100
 
 
 startBtn.addEventListener('click', startQuiz)
-
+startBtn.setAttribute("style", 'background-color: brown')
 function startQuiz() {
     startContainer.classList.add('hide')
     startTimer()
@@ -38,7 +38,7 @@ function startQuiz() {
 
 function startTimer() {
     timeContainer.textContent = timer
-
+ 
     var timeInterval = setInterval(function () {
         timer--
         timeContainer.textContent = "Time: "+ timer
@@ -52,7 +52,7 @@ function startTimer() {
 
 function endQuiz() {
     console.log('quiz is over')
-    quizContainer.innerHTML= "Quiz is Over" 
+    quizContainer.innerHTML= "Quiz is Over  "
 
     var userInput = document.createElement('input')
     userInput.setAttribute('placeholder', 'Name', "style")
@@ -109,16 +109,17 @@ function showQuestions() {
     for (var i = 0; i < quizQuestions[quizIndex].choices.length; i++) {
         var choiceEl = document.createElement('button')
         choiceEl.textContent = quizQuestions[quizIndex].choices[i]
+        choiceEl.setAttribute("style", 'background-color: brown', )
 
         quizContainer.append(choiceEl)
 
         choiceEl.addEventListener('click', function (event) {
             if (event.target.textContent === quizQuestions[quizIndex].correct) {
-                quizContainer.innerHTML= 'correct'
+               
                 console.log('correct')
                 score += 33
             } else {
-                quizContainer.innerHTML= 'incorrect'
+            
                 console.log('incorrect')
                 timer -= 20
             }
