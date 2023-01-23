@@ -11,10 +11,11 @@ var quizQuestions = [
     },
     {
         question: "Use else if to specify a new condition to test,______ ",
-        choices: ["1. if the same condition is false ", "2. if a specified condition is true", "3. if the first condition is false ", "4. if the first condition is true"],
+        choices: ["1. if the same condition is false ", "2. if a specified condition is true", "3. if the first condition is false", "4. if the first condition is true"],
         correct: "3. if the first condition is false"
     },
 ]
+
 
 var startBtn = document.getElementById('start-btn')
 var startContainer = document.querySelector('.start-container')
@@ -24,6 +25,7 @@ var timeContainer = document.querySelector('.time-container')
 var quizIndex = 0
 var score = 0
 var timer = 100
+
 
 
 startBtn.addEventListener('click', startQuiz)
@@ -39,7 +41,7 @@ function startTimer() {
 
     var timeInterval = setInterval(function () {
         timer--
-        timeContainer.textContent = timer
+        timeContainer.textContent = "Time: "+ timer
         if (timer === 0 || quizIndex > quizQuestions.length - 1) {
             clearInterval(timeInterval)
             endQuiz()
@@ -50,25 +52,48 @@ function startTimer() {
 
 function endQuiz() {
     console.log('quiz is over')
-   
+    quizContainer.innerHTML= "Quiz is Over" 
+
     var userInput = document.createElement('input')
-    userInput.setAttribute('placeholder', 'Name')
+    userInput.setAttribute('placeholder', 'Name', "style")
 
     var submitBtn = document.createElement('button')
     submitBtn.textContent = 'SUBMIT'
 
     quizContainer.append(userInput, submitBtn)
 
-    submitBtn.addEventListener('click', function() {
+    submitBtn.addEventListener('click', function () {
         var userObj = {
-           
+
             name: userInput.value,
             highscore: score
         }
+        localStorage.setItem('userobj', JSON.stringify (userObj))
+        showhighscore();
         
-        quizContainer.append(userObj);
-        console.log(userObj)
     })
+}
+function showhighscore() {
+    clearInterval(showQuestions);
+    var highscore = document.querySelector("score");
+    highscore.textContent = 'Highscore + score'
+
+    var button0 = document.createElement('button');
+    button0.textContent = "Go Back";
+    button0.id = "#return to quiz";
+
+    var button1 = document.createElement('button');
+    button1.textContent = "Clear Highscore";
+    button1.id = "#clear";
+
+    quizContainer.append(button0, button1);
+    button0.addEventListener("click", function () {
+        showQuestions();
+    })
+    button1.addEventListener("click", function () {
+        clearInterval(showhighscore);
+    })
+   
 }
 
 function showQuestions() {
@@ -89,9 +114,11 @@ function showQuestions() {
 
         choiceEl.addEventListener('click', function (event) {
             if (event.target.textContent === quizQuestions[quizIndex].correct) {
+                quizContainer.innerHTML= 'correct'
                 console.log('correct')
                 score += 33
             } else {
+                quizContainer.innerHTML= 'incorrect'
                 console.log('incorrect')
                 timer -= 20
             }
