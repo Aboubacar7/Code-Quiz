@@ -15,4 +15,4 @@ I can save my initials and my score
 
 # Github link - https://github.com/Aboubacar7/Code-Quiz
 
-# Live URL - 
+# Live URL - https://aboubacar7.github.io/Code-Quiz/

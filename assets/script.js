@@ -109,7 +109,7 @@ function showQuestions() {
     for (var i = 0; i < quizQuestions[quizIndex].choices.length; i++) {
         var choiceEl = document.createElement('button')
         choiceEl.textContent = quizQuestions[quizIndex].choices[i]
-        choiceEl.setAttribute("style", 'background-color: brown', )
+        choiceEl.setAttribute("style", 'background-color: brown')
 
         quizContainer.append(choiceEl)
 
