@@ -22,6 +22,7 @@ var startContainer = document.querySelector('.start-container')
 var quizContainer = document.querySelector('.quiz-container')
 var timeContainer = document.querySelector('.time-container')
 
+
 var quizIndex = 0
 var score = 0
 var timer = 100
@@ -29,7 +30,7 @@ var timer = 100
 
 
 startBtn.addEventListener('click', startQuiz)
-startBtn.setAttribute("style", 'background-color: brown')
+startBtn.setAttribute("style", 'background-color: dodgerblue')
 function startQuiz() {
     startContainer.classList.add('hide')
     startTimer()
@@ -45,7 +46,6 @@ function startTimer() {
         if (timer === 0 || quizIndex > quizQuestions.length - 1) {
             clearInterval(timeInterval)
             endQuiz()
-            showhighscore() 
         }
     }, 1000)
 }
@@ -60,7 +60,7 @@ function endQuiz() {
 
     var submitBtn = document.createElement('button')
     submitBtn.textContent = 'SUBMIT'
-    
+    submitBtn.setAttribute("id", "submit")
 
     quizContainer.append(userInput, submitBtn)
 
@@ -71,14 +71,19 @@ function endQuiz() {
             highscore: score
         }
         localStorage.setItem('userObj',JSON.stringify (userObj))
+        showhighscore() 
     })
-    
+   
 }
 function showhighscore() {
-    clearInterval(showQuestions);
+    document.querySelector("#submit").style.display = "none"
+  
+    clearInterval(endQuiz);
     var highscore = document.querySelector(".score");
-    highscore.textContent = highscore, score
-
+    
+    var sc = JSON.parse(localStorage.getItem("userObj"));
+    console.log(sc)
+    highscore.textContent = sc.name +  " " + sc.highscore
     var button0 = document.createElement('button');
     button0.textContent = "Go Back";
     button0.id = "#return to quiz";
@@ -89,10 +94,11 @@ function showhighscore() {
 
     quizContainer.append(button0, button1);
     button0.addEventListener("click", function () {
-        showQuestions();
+        //showQuestions();
+        location.reload()
     })
     button1.addEventListener("click", function () {
-        clearInterval(showhighscore);
+        clearInterval(highscore);
     })
    
 }
@@ -109,10 +115,11 @@ function showQuestions() {
 
     for (var i = 0; i < quizQuestions[quizIndex].choices.length; i++) {
         var choiceEl = document.createElement('button')
+        var wrapper = document.createElement('div')
         choiceEl.textContent = quizQuestions[quizIndex].choices[i]
-        choiceEl.setAttribute("style", 'background-color: brown')
-
-        quizContainer.append(choiceEl)
+        choiceEl.setAttribute("style", 'background-color: dodgerblue' )
+        wrapper.append(choiceEl)
+        quizContainer.append(wrapper)
 
         choiceEl.addEventListener('click', function (event) {
             if (event.target.textContent === quizQuestions[quizIndex].correct) {
