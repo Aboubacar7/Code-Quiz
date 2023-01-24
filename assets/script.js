@@ -45,6 +45,7 @@ function startTimer() {
         if (timer === 0 || quizIndex > quizQuestions.length - 1) {
             clearInterval(timeInterval)
             endQuiz()
+            showhighscore() 
         }
     }, 1000)
 }
@@ -59,6 +60,7 @@ function endQuiz() {
 
     var submitBtn = document.createElement('button')
     submitBtn.textContent = 'SUBMIT'
+    
 
     quizContainer.append(userInput, submitBtn)
 
@@ -68,15 +70,14 @@ function endQuiz() {
             name: userInput.value,
             highscore: score
         }
-        localStorage.setItem('userobj', JSON.stringify (userObj))
-        showhighscore();
-        
+        localStorage.setItem('userObj',JSON.stringify (userObj))
     })
+    
 }
 function showhighscore() {
     clearInterval(showQuestions);
-    var highscore = document.querySelector("score");
-    highscore.textContent = 'Highscore + score'
+    var highscore = document.querySelector(".score");
+    highscore.textContent = highscore, score
 
     var button0 = document.createElement('button');
     button0.textContent = "Go Back";
