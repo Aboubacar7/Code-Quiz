@@ -1,24 +1,36 @@
-*{
+* {
     margin: 0;
     padding: 0;
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
-.container{
+
+body {
+    background-color: rgb(202, 202, 255);
+    position: relative;
+}
+
+.container {
+    position: absolute;
+    display: flex;
     justify-content: center;
     text-align: center;
-   
-    
+    align-items: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 50%);
 }
-.header{
-justify-content: space-between;
-display: flex;
+
+.header {
+    justify-content: space-between;
+    display: flex;
 }
 
 
 .hide {
     display: none;
+
 }
 
-.show{
+.show {
     display: contents;
 }

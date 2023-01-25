@@ -20,7 +20,13 @@ var quizQuestions = [
 var startBtn = document.getElementById('start-btn')
 var startContainer = document.querySelector('.start-container')
 var quizContainer = document.querySelector('.quiz-container')
+var scoreContainer = document.querySelector('.score-container')
 var timeContainer = document.querySelector('.time-container')
+var highscoresBtn = document.getElementById('highscore-btn')
+
+highscoresBtn.addEventListener('click', function() {
+    showhighscore()
+})
 
 
 var quizIndex = 0
@@ -38,22 +44,25 @@ function startQuiz() {
 }
 
 function startTimer() {
-    timeContainer.textContent = timer
- 
+    timeContainer.textContent = "Time: " + timer
+
     var timeInterval = setInterval(function () {
         timer--
-        timeContainer.textContent = "Time: "+ timer
+        timeContainer.textContent = "Time: " + timer
         if (timer === 0 || quizIndex > quizQuestions.length - 1) {
             clearInterval(timeInterval)
             endQuiz()
         }
+        highscoresBtn.addEventListener('click', function () {
+            clearInterval(timeInterval)
+        })
     }, 1000)
 }
 
 
 function endQuiz() {
     console.log('quiz is over')
-    quizContainer.innerHTML= "Quiz is Over  "
+    quizContainer.innerHTML = "Quiz is Over  "
 
     var userInput = document.createElement('input')
     userInput.setAttribute('placeholder', 'Name', "style")
@@ -70,19 +79,21 @@ function endQuiz() {
             name: userInput.value,
             highscore: score
         }
-        localStorage.setItem('userObj',JSON.stringify (userObj))
-        showhighscore() 
+        localStorage.setItem('userObj', JSON.stringify(userObj))
+        showhighscore()
     })
-   
+
 }
 function showhighscore() {
-    document.querySelector("#submit").style.display = "none"
+    // document.querySelector("#submit").style.display = "none"
+    scoreContainer.textContent = ''
+    startContainer.classList.add('hide')
     quizContainer.classList.add('hide')
     var highscore = document.querySelector(".score");
-    
+
     var sc = JSON.parse(localStorage.getItem("userObj"));
     console.log(sc)
-    highscore.textContent = sc.name +  " " + sc.highscore
+    highscore.textContent = sc.name + " " + sc.highscore
     var button0 = document.createElement('button');
     button0.textContent = "Go Back";
     button0.id = "#return to quiz";
@@ -91,7 +102,7 @@ function showhighscore() {
     button1.textContent = "Clear Highscore";
     button1.id = "#clear";
 
-    quizContainer.append(button0, button1);
+    scoreContainer.append(button0, button1);
     button0.addEventListener("click", function () {
         location.reload()
     })
@@ -99,7 +110,7 @@ function showhighscore() {
         //clearInterval(highscore);
         sc.classList.add('hide')
     })
-   
+
 }
 
 function showQuestions() {
@@ -116,17 +127,17 @@ function showQuestions() {
         var choiceEl = document.createElement('button')
         var wrapper = document.createElement('div')
         choiceEl.textContent = quizQuestions[quizIndex].choices[i]
-        choiceEl.setAttribute("style", 'background-color: dodgerblue' )
+        choiceEl.setAttribute("style", 'background-color: dodgerblue')
         wrapper.append(choiceEl)
         quizContainer.append(wrapper)
 
         choiceEl.addEventListener('click', function (event) {
             if (event.target.textContent === quizQuestions[quizIndex].correct) {
-               
+
                 console.log('correct')
                 score += 33
             } else {
-            
+
                 console.log('incorrect')
                 timer -= 20
             }
