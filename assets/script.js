@@ -77,8 +77,7 @@ function endQuiz() {
 }
 function showhighscore() {
     document.querySelector("#submit").style.display = "none"
-  
-    clearInterval(endQuiz);
+    quizContainer.classList.add('hide')
     var highscore = document.querySelector(".score");
     
     var sc = JSON.parse(localStorage.getItem("userObj"));
@@ -94,11 +93,11 @@ function showhighscore() {
 
     quizContainer.append(button0, button1);
     button0.addEventListener("click", function () {
-        //showQuestions();
         location.reload()
     })
     button1.addEventListener("click", function () {
-        clearInterval(highscore);
+        //clearInterval(highscore);
+        sc.classList.add('hide')
     })
    
 }
