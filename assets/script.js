@@ -22,9 +22,10 @@ var startContainer = document.querySelector('.start-container')
 var quizContainer = document.querySelector('.quiz-container')
 var scoreContainer = document.querySelector('.score-container')
 var timeContainer = document.querySelector('.time-container')
-var highscoresBtn = document.getElementById('highscore-btn')
+var highscoresBtn = document.getElementById('#highscore-btn')
 
 highscoresBtn.addEventListener('click', function() {
+    clearInterval(timeInterval)
     showhighscore()
 })
 
@@ -55,6 +56,7 @@ function startTimer() {
         }
         highscoresBtn.addEventListener('click', function () {
             clearInterval(timeInterval)
+            showhighscore()
         })
     }, 1000)
 }
@@ -107,7 +109,7 @@ function showhighscore() {
         location.reload()
     })
     button1.addEventListener("click", function () {
-        //clearInterval(highscore);
+        clearInterval(highscore);
         sc.classList.add('hide')
     })
 
